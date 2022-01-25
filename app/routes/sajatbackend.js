@@ -36,6 +36,29 @@ module.exports = function(app) {
 
   })
   //--------------------------------------alap vége---------------------------------
+//----------------------------------------törlés------------------------------------
+app.post('/torles', (req, res) => {
+
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'animedb'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM animek WHERE anime_id='+req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log("Szavazatát rögzítettük!")
+    res.send("Szavazatát rögzítettük!")
+  })
+  
+  connection.end()
+
+})
 
   //-------------------------------------szavazatfelvitel---------------------------
 
