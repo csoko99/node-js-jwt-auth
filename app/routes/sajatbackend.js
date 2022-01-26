@@ -52,15 +52,39 @@ app.post('/torles', (req, res) => {
   connection.query('DELETE FROM animek WHERE anime_id='+req.body.bevitel1, function (err, rows, fields) {
     if (err) throw err
   
-    console.log("Szavazatát rögzítettük!")
-    res.send("Szavazatát rögzítettük!")
+    console.log("A törlés sikeres volt!")
+    res.send("A törlés sikeres volt!")
   })
   
   connection.end()
 
 })
 
+app.post('/leiras_torles', (req, res) => {
+
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'animedb'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM leiras WHERE anime_leiras_id='+req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log("A törlés sikeres volt!")
+    res.send("A törlés sikeres volt!")
+  })
+  
+  connection.end()
+
+})
   //-------------------------------------szavazatfelvitel---------------------------
+
+  
 
   app.post('/szavazatfelvitel', (req, res) => {
 
@@ -85,7 +109,34 @@ app.post('/torles', (req, res) => {
   
   })
 
-  //-------------------------------------Megjelenés----------------------------------
+  //-------------------------------------leiras----------------------------------
+  
+  app.get('/leiras', (req, res) => {
+  
+
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'animedb'
+  })
+  
+  connection.connect()
+      
+      connection.query('SELECT * FROM `leiras`', function (err, rows, fields) {
+         // if (err) throw err;
+        
+        console.log(rows)
+        res.send(rows)
+      })
+      
+      connection.end()
+   
+   
+  //-----------------------------evszam szerint------------------------------
+    })
+  
   app.get('/ketezer', (req, res) => {
   
 
