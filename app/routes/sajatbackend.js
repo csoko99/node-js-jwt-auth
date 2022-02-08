@@ -23,8 +23,8 @@ module.exports = function(app) {
     
     connection.connect()
     
-    connection.query('SELECT * from animek INNER JOIN leiras ON animek.anime_id=leiras.anime_leiras_id', function (err, rows, fields) {
-       
+    //connection.query('SELECT * from animek INNER JOIN leiras ON animek.anime_id=leiras.anime_leiras_id', function (err, rows, fields) {
+      connection.query('SELECT * from animek', function (err, rows, fields) {  
       
       console.log(rows)
       res.send(rows)
@@ -82,9 +82,61 @@ app.post('/leiras_torles', (req, res) => {
   connection.end()
 
 })
-  //-------------------------------------szavazatfelvitel---------------------------
+  //-------------------------------------felvitel---------------------------
 
+  app.post('/anime_felvitel', (req, res) => {
+
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'animedb'
+    })
+    
+    connection.connect()
+    
+    //connection.query('INSERT INTO `animek` (`anime_id`, `anime_nev`, `anime_megjdatum`, `anime_mufaj`, `anime_evadsz`) VALUES (NULL, '+req.body.bevitel1+', '+req.body.bevitel2+', '+req.body.bevitel3+', '+req.body.bevitel4+');', function (err, rows, fields) {
+      
+
+    connection.query("INSERT INTO animek  VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"');", function (err, rows, fields) {
+      if (err) throw err
+      
+    
+      console.log("Felvitelt rögzítettük!")
+      res.send("Felvitelt rögzítettük!")
+    })
+    
+    connection.end()
   
+  })
+
+
+
+  app.post('/leiras_felvitel', (req, res) => {
+
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'animedb'
+    })
+    
+    connection.connect()
+    
+   
+    connection.query("INSERT INTO leiras  VALUES (NULL, '"+req.body.leiras+"');", function (err, rows, fields) {
+      if (err) throw err
+      
+    
+      console.log("Felvitelt rögzítettük!")
+    })
+    
+    connection.end()
+  
+  })
+
 
   app.post('/szavazatfelvitel', (req, res) => {
 
