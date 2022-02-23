@@ -1,5 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
+const fileupload = require("express-fileupload");
+
+
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -9,6 +12,8 @@ module.exports = function(app) {
     );
     next();
   });
+
+  app.use(fileupload());
 
   //saját backend végpontok
   app.get('/animek', (req, res) => {
@@ -36,6 +41,23 @@ module.exports = function(app) {
 
   })
   //--------------------------------------alap vége---------------------------------
+
+//----------------------------------------képfeltötlés---------------------------------
+
+
+  app.post("/upload", (req, res) => {
+    const newpath = "./kepek/";
+    const file = req.files.file;
+    const filename = file.name;
+  
+    file.mv(`${newpath}${filename}`, (err) => {
+      if (err) {
+        return res.status(500).send({ message: "File upload failed", code: 200 });
+      }
+        return res.status(200).send({ message: "File Uploaded", code: 200 });
+    });
+  });
+
 //----------------------------------------törlés------------------------------------
 app.post('/torles', (req, res) => {
 
