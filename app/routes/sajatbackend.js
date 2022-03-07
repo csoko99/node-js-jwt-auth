@@ -104,6 +104,32 @@ app.post('/leiras_torles', (req, res) => {
   connection.end()
 
 })
+//-------------------------------Szavazás lekérdezés----------------------------
+app.get('/Szavazatok', (req, res) => {
+            
+          
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'animedb'
+})
+
+connection.connect()
+    
+    connection.query('SELECT * FROM `szavazatok` INNER JOIN animek ON szavazatok.szavazat_animeid=animek.anime_id', function (err, rows, fields) {
+       // if (err) throw err;
+      
+      console.log(rows)
+      res.send(rows)
+    })
+    
+    connection.end()
+ 
+ 
+
+  })
   //-------------------------------------felvitel---------------------------
 
   app.post('/anime_felvitel', (req, res) => {
@@ -121,7 +147,7 @@ app.post('/leiras_torles', (req, res) => {
     //connection.query('INSERT INTO `animek` (`anime_id`, `anime_nev`, `anime_megjdatum`, `anime_mufaj`, `anime_evadsz`) VALUES (NULL, '+req.body.bevitel1+', '+req.body.bevitel2+', '+req.body.bevitel3+', '+req.body.bevitel4+');', function (err, rows, fields) {
       
 
-    connection.query("INSERT INTO animek  VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"');", function (err, rows, fields) {
+    connection.query("INSERT INTO animek  VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"','"+req.body.bevitel5+"');", function (err, rows, fields) {
       if (err) throw err
       
     
