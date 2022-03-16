@@ -118,7 +118,7 @@ app.get('/Szavazatok', (req, res) => {
 
 connection.connect()
     
-    connection.query('SELECT * FROM `szavazatok` INNER JOIN animek ON szavazatok.szavazat_animeid=animek.anime_id', function (err, rows, fields) {
+    connection.query('SELECT anime_nev, anime_id , COUNT(szavazatok.szavazat_animeid) AS darab FROM `animek`INNER JOIN szavazatok ON animek.anime_id=szavazatok.szavazat_animeid GROUP BY (szavazatok.szavazat_animeid);', function (err, rows, fields) {
        // if (err) throw err;
       
       console.log(rows)
