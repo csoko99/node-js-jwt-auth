@@ -147,7 +147,7 @@ connection.connect()
     //connection.query('INSERT INTO `animek` (`anime_id`, `anime_nev`, `anime_megjdatum`, `anime_mufaj`, `anime_evadsz`) VALUES (NULL, '+req.body.bevitel1+', '+req.body.bevitel2+', '+req.body.bevitel3+', '+req.body.bevitel4+');', function (err, rows, fields) {
       
 
-    connection.query("INSERT INTO animek  VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"','"+req.body.bevitel5+"');", function (err, rows, fields) {
+    connection.query("INSERT INTO animek  VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"','"+req.body.bevitel5+"','"+req.body.bevitel6+"');", function (err, rows, fields) {
       if (err) throw err
       
     
